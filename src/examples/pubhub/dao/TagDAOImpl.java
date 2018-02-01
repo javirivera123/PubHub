@@ -1,8 +1,6 @@
 package examples.pubhub.dao;
 
-import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import examples.pubhub.model.Book;
-import examples.pubhub.model.Tag;
 import examples.pubhub.utilities.DAOUtilities;
 
 /**
@@ -36,6 +33,7 @@ public class TagDAOImpl implements TagDAO {
 			//stmt.setString(1, "%" + tag + "%");
 			stmt.setString(1, tag );
 			
+			System.out.println(stmt);
 			ResultSet rs = stmt.executeQuery();			// Queries the database
 
 			// So long as the ResultSet actually contains results...
@@ -90,6 +88,7 @@ public class TagDAOImpl implements TagDAO {
 			stmt = connection.prepareStatement(sql);	// Creates the prepared statement from the query
 			stmt.setString(1, book.getIsbn13());
 	
+			System.out.println(stmt);
 			ResultSet rs = stmt.executeQuery();			// Queries the database
 
 			// So long as the ResultSet actually contains results...
@@ -122,12 +121,13 @@ public class TagDAOImpl implements TagDAO {
 		
 		try {
 			connection = DAOUtilities.getConnection();
-			String sql = "INSERT INTO book_tags WHERE VALUES (?, ?)"; // Were using a lot of ?'s here...
+			String sql = "INSERT INTO book_tags VALUES (?, ?)";
 			stmt = connection.prepareStatement(sql);
 			
 			// But that's okay, we can set them all before we execute
 			stmt.setString(1, book.getIsbn13());
 			stmt.setString(2, tag);
+			System.out.println(stmt);
 			
 			// If we were able to add our book to the DB, we want to return true. 
 			// This if statement both executes our query, and looks at the return 
@@ -158,6 +158,7 @@ public class TagDAOImpl implements TagDAO {
 			
 			stmt.setString(1, tag);
 			stmt.setString(2, book.getIsbn13());
+			System.out.println(stmt);
 			
 			if (stmt.executeUpdate() != 0)
 				return true;

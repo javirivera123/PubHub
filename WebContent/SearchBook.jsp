@@ -25,7 +25,7 @@
 		</h1>
 		<hr class="book-primary">
 
-		<form action="queryTag" method="post">
+		<form action="queryTag" method="post" class="form-horizontal">
 			<table>
 				<tr>
 					<td>Tags:</td>

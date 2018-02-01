@@ -36,33 +36,33 @@ $(document).ready(function() {
 		
 	});	
 	
-	$('#Add').click(function(){
-		$('.col-sm-5:last').after($('.col-sm-5:last').clone());
-	     alert("The add was clicked.");
-	});
 
 
 
-	   $('#Delete').click(function(){
-		    $('.col-sm-5:last').remove();
-		    });
-	   
-	   $('#DeleteTag').click(function(){
+	
+	   $('.DeleteTag:button').click(function(){
 		   if (confirm('Are you sure you want to delete tag from book?')) {
 			    // call servlet to delete!
+			   $.ajax({
+				     url: "DeleteTag",
+				     method: "POST",
+				     data: {isbn13: $('#isbn13').val(), tag: $(this).val()}
+				  }).done(function(res){
+				     console.log(res);
+				    //"Updated data successfully\n";
+				    //IF ALL IS OK!!
+				  });
+			   
+			   
+			 var deletee = $(this).val();
+			   $('#' + deletee).remove();
 			   alert("deleted");
 			} else {
 			    // Do nothing!
-				alert('not deleted');
 			}
 		    });
 
 		    
-		    $('#Retrieve').click(function(){
-		        $('.col-sm-5 input:text').each(function(i,e){
-		        alert($(e).val()); //Alerts all values individually
-		        });
-	    });
 	
 });
 
